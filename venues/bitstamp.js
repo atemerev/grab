@@ -26,6 +26,7 @@ class Bitstamp {
                 this.ws.send(msg)
             })
         }
+        let self = this
         this.ws.onmessage = (e) => {
             let obj = JSON.parse(e.data)
             if (obj.event && obj.event === 'trade') {
@@ -46,8 +47,7 @@ class Bitstamp {
                     'size': size,
                     'misc': misc
                 }
-                let result = {'type': 'trades', 'data': [trade]}
-                callback([result])
+                self.onTrades([trade])
             }
         }
     }

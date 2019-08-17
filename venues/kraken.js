@@ -16,9 +16,11 @@ class Kraken {
         }
         this.ws = new ReconnectingWebSocket(WS_ENDPOINT, [], wsOptions)
         this.ws.onopen = () => {
+            console.log('Kraken connected.')
             let msg = JSON.stringify(subscribe)
             this.ws.send(msg)
         }
+        let self = this
         this.ws.onmessage = (e) => {
             let obj = JSON.parse(e.data)
             if (Array.isArray(obj)) {
@@ -40,8 +42,7 @@ class Kraken {
                         'misc': misc
                     }
                 })
-                let result = {'type': 'trades', 'data': trades}
-                callback(result)
+                self.onTrades(trades)
             }
         }
     }

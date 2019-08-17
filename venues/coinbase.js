@@ -21,6 +21,7 @@ class Coinbase {
             let msg = JSON.stringify(subscribe)
             this.ws.send(msg)
         }
+        let self = this
         this.ws.onmessage = (e) => {
             let obj = JSON.parse(e.data)
             if (obj.type && obj.type === 'match') {
@@ -39,8 +40,7 @@ class Coinbase {
                     'size': size,
                     'misc': misc
                 }
-                let result = {'type': 'trades', 'data': [trade]}
-                callback(result)
+                self.onTrades([trade])
             }
         }
     }
