@@ -1,0 +1,15 @@
+*.iml
+*.ipr
+*.iws
+.idea/
+target/
+project/target
+js/target/
+jvm/target/
+shared/target/
+node_modules/
+server/node_modules
+dist/
+.cache/
+yarn.lock
+yarn-error.log
